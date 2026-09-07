@@ -1,0 +1,6 @@
+{
+  "name": "Análise de Harmonia Facial",
+  "description": "Aplicativo editorial para análise visual e proporções faciais orientada por IA multimodal com relatório estruturado, mapa facial interativo e exportação em PDF.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
