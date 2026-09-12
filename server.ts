@@ -95,7 +95,7 @@ app.post('/api/analyze-quality', async (req, res) => {
       : 'Todos os comentários, observações e sugestões no JSON de saída DEVEM ESTAR EM PORTUGUÊS (BRASIL).';
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
+      model: 'gemini-2.5-flash',
       contents: {
         parts: [
           {
@@ -212,7 +212,7 @@ INSTRUÇÕES ADICIONAIS DE EXECUÇÃO:
     parts.push({ text: promptText });
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.8-flash',
+      model: 'gemini-2.5-flash',
       contents: { parts },
       config: {
         responseMimeType: 'application/json',
