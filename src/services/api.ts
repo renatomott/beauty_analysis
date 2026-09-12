@@ -19,8 +19,14 @@ export async function requestQualityCheck(
     });
 
     if (!response.ok) {
-      const errJson = await response.json().catch(() => ({}));
-      throw new Error(errJson.error || `Erro na verificação de qualidade: ${response.statusText}`);
+      const errText = await response.text();
+      let errJson: any = {};
+      try {
+        errJson = JSON.parse(errText);
+      } catch (e) {
+        // Not JSON
+      }
+      throw new Error(errJson.error || errJson.details || errText || `Erro HTTP ${response.status}`);
     }
 
     const data = await response.json();
@@ -82,8 +88,14 @@ export async function requestFacialAnalysis(
     onProgress?.(language === 'en' ? 'Finalizing editorial dossier...' : 'Finalizando relatório editorial...', 98);
 
     if (!response.ok) {
-      const errJson = await response.json().catch(() => ({}));
-      throw new Error(errJson.error || `Erro no servidor: ${response.statusText}`);
+      const errText = await response.text();
+      let errJson: any = {};
+      try {
+        errJson = JSON.parse(errText);
+      } catch (e) {
+        // Not JSON
+      }
+      throw new Error(errJson.error || errJson.details || errText || `Erro HTTP ${response.status}`);
     }
 
     const data: FacialAnalysisResult = await response.json();

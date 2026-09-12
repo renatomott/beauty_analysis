@@ -13,7 +13,7 @@ import { createPencilSketch } from './utils/imageStylizer';
 
 const DEFAULT_PORTRAIT_URL =
   'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop';
-const STYLIZED_SAMPLE_PORTRAIT = '/assets/stylized_face_sketch.jpg';
+const STYLIZED_SAMPLE_PORTRAIT = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600&h=600';
 
 const INITIAL_SLOTS: PhotoSlot[] = [
   { id: '1', tag: 'Frontal neutra', isFrontal: true },

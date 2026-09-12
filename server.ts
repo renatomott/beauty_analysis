@@ -1,7 +1,5 @@
-import 'dotenv/config';
 import express from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
 import { createServer as createViteServer } from 'vite';
 import {
@@ -11,8 +9,6 @@ import {
 } from './src/prompts/facialAnalysisPrompt';
 import { SAMPLE_ANALYSIS_DATA, getSampleAnalysisData } from './src/data/defaultAnalysis';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;
@@ -123,9 +119,18 @@ app.post('/api/analyze-quality', async (req, res) => {
     return res.json(parsed);
   } catch (error: any) {
     console.error('Erro no quality check:', error);
+    let details = error.message || String(error);
+    try {
+      const parsedDetails = JSON.parse(details);
+      if (parsedDetails?.error?.message) {
+        details = parsedDetails.error.message;
+      }
+    } catch (e) {
+      // not JSON
+    }
     return res.status(500).json({
       error: 'Não foi possível completar a análise de qualidade.',
-      details: error.message || String(error),
+      details,
     });
   }
 });
@@ -232,9 +237,18 @@ INSTRUÇÕES ADICIONAIS DE EXECUÇÃO:
     return res.json(parsedResult);
   } catch (error: any) {
     console.error('Erro na análise facial:', error);
+    let details = error.message || String(error);
+    try {
+      const parsedDetails = JSON.parse(details);
+      if (parsedDetails?.error?.message) {
+        details = parsedDetails.error.message;
+      }
+    } catch (e) {
+      // not JSON
+    }
     return res.status(500).json({
       error: 'Não foi possível completar a análise facial no momento.',
-      details: error.message || String(error),
+      details,
     });
   }
 });
